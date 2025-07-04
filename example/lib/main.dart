@@ -120,12 +120,12 @@ class _MyHomePageState extends State<MyHomePage> {
                           SizedBox(height: 16),
                           Text(
                             'Default Dialer Status',
-                            style: Theme.of(context).textTheme.headline6,
+                            style: Theme.of(context).textTheme.titleLarge,
                           ),
                           SizedBox(height: 8),
                           Text(
                             isDefault ? 'This app is the default dialer' : 'This app is NOT the default dialer',
-                            style: Theme.of(context).textTheme.bodyText1,
+                            style: Theme.of(context).textTheme.bodyLarge,
                             textAlign: TextAlign.center,
                           ),
                         ],
@@ -146,12 +146,12 @@ class _MyHomePageState extends State<MyHomePage> {
                           SizedBox(height: 16),
                           Text(
                             'Can Set as Default',
-                            style: Theme.of(context).textTheme.headline6,
+                            style: Theme.of(context).textTheme.titleLarge,
                           ),
                           SizedBox(height: 8),
                           Text(
                             canSet ? 'This app can be set as default dialer' : 'This app cannot be set as default dialer',
-                            style: Theme.of(context).textTheme.bodyText1,
+                            style: Theme.of(context).textTheme.bodyLarge,
                             textAlign: TextAlign.center,
                           ),
                         ],
@@ -173,7 +173,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   SizedBox(height: 16),
                   Text(
                     'Note: Setting as default dialer will open the system settings dialog.',
-                    style: Theme.of(context).textTheme.caption,
+                    style: Theme.of(context).textTheme.bodySmall,
                     textAlign: TextAlign.center,
                   ),
                 ],

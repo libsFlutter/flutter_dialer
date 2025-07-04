@@ -1,6 +1,6 @@
 name: flutter_dialer
 description: "Flutter plugin for replacing the default dialer app on Android"
-version: 1.0.0+1
+version: 2.0.0+101
 homepage: https://github.com/telefon-one/flutter_dialer
 
 environment:

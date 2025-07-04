@@ -70,6 +70,7 @@ class FlutterDialerPlugin: FlutterPlugin, MethodCallHandler {
       
       val intent = Intent(TelecomManager.ACTION_CHANGE_DEFAULT_DIALER).apply {
         putExtra(TelecomManager.EXTRA_CHANGE_DEFAULT_DIALER_PACKAGE_NAME, context.packageName)
+        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
       }
       
       // Note: This will open the system dialog to change default dialer
