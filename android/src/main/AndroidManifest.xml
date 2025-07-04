@@ -1,0 +1,72 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+  package="org.tele.flutter_dialer">
+
+  <!-- Permissions -->
+  <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+  <uses-permission android:name="android.permission.CALL_PHONE" />
+  <uses-permission android:name="android.permission.READ_CALL_LOG" />
+  <uses-permission android:name="android.permission.MODIFY_PHONE_STATE" />
+  <uses-permission android:name="android.permission.ANSWER_PHONE_CALLS" />
+  <uses-permission android:name="android.permission.MANAGE_OWN_CALLS" />
+
+  <application>
+    <!-- Main Activity for dialer replacement -->
+    <activity
+      android:name=".MainActivity"
+      android:exported="true"
+      android:launchMode="singleTop"
+      android:theme="@style/LaunchTheme"
+      android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+      android:hardwareAccelerated="true"
+      android:windowSoftInputMode="adjustResize">
+      
+      <!-- ReplaceDialer Intent Filters -->
+      <intent-filter>
+        <!-- Handle links from other applications -->
+        <action android:name="android.intent.action.VIEW" />
+        <action android:name="android.intent.action.DIAL" />
+        <!-- Populate the system chooser -->
+        <category android:name="android.intent.category.DEFAULT" />
+        <!-- Handle links in browsers -->
+        <category android:name="android.intent.category.BROWSABLE" />
+        <!-- SCHEME TEL -->
+        <data android:scheme="tel"/>
+      </intent-filter>
+      
+      <intent-filter>
+        <action android:name="android.intent.action.DIAL"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+      </intent-filter>
+      
+      <!-- Main activity intent filter -->
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+      
+      <meta-data
+        android:name="io.flutter.embedding.android.NormalTheme"
+        android:resource="@style/NormalTheme"
+        />
+    </activity>
+
+    <!-- InCallService for handling calls -->
+    <service
+      android:name=".TeleService"
+      android:permission="android.permission.BIND_INCALL_SERVICE"
+      android:exported="true">
+      <meta-data
+        android:name="android.telecom.IN_CALL_SERVICE_UI"
+        android:value="true" />
+      <intent-filter>
+        <action android:name="android.telecom.InCallService" />
+      </intent-filter>
+    </service>
+
+    <!-- Don't delete the meta-data below.
+         This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
+    <meta-data
+      android:name="flutterEmbedding"
+      android:value="2" />
+  </application>
+</manifest>
