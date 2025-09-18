@@ -1,5 +1,11 @@
 # Changelog
 
+## [2.0.0+101] - 2024-12-19
+
+### Updated
+- Package version updated to 2.0.0+101
+- Prepared for publication to pub.dev
+
 ## [1.0.0+2] - 2024-12-19
 
 ### Fixed
