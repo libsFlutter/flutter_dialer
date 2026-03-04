@@ -2,46 +2,89 @@
 
 > Android InCallService for managing active calls
 
-## Phase: ENTERING
+## Phase: SYNTHESIZING
 
-## Hypothesis
+## Synthesis from Children
 
-This domain implements the Android InCallService to monitor and manage active phone calls. Expected to include:
-- Service extending android.telecom.InCallService
-- Call lifecycle callbacks (onCallAdded, onCallRemoved)
-- Call state monitoring via Call.Callback
+### Call Lifecycle (from call-lifecycle/*)
 
-## Sources
+**Service Lifecycle**:
+- `onCreate()`: Service created
+- `onCallAdded()`: New call added, register callback
+- `onCallRemoved()`: Call removed from system
+- `onDestroy()`: Service destroyed
 
-- `android/src/main/kotlin/org/tele/flutter_dialer/TeleService.kt` - InCallService implementation
+**Call Lifecycle**:
+```
+onCallAdded → [Call Active] → onCallRemoved → onCallDestroyed
+```
 
-## Validated Understanding
+**Callback Registration**: In `onCallAdded()`, registers `Call.Callback` for state tracking
 
-[pending code analysis]
+### Call State Monitoring (from call-state-monitoring/*)
 
-## Children
+**Call.Callback Methods**:
+- `onStateChanged(call, state)`: Monitors all state transitions
+- `onCallDestroyed(call)`: Final callback
 
-| Child | Status |
-|-------|--------|
-| call-lifecycle | PENDING |
-| call-state-monitoring | PENDING |
+**Call States**:
+- STATE_CONNECTING, STATE_CONNECTED, STATE_DISCONNECTING, STATE_DISCONNECTED
+- STATE_RINGING, STATE_ACTIVE, STATE_HOLDING
+- STATE_SELECT_PHONE_ACCOUNT
+
+**Current Implementation**: Logging only (no business logic)
+
+### Complete Understanding
+
+The InCallService implementation is a **skeleton/minimal implementation**:
+
+1. **Proper Structure**: Correctly extends InCallService
+2. **Lifecycle Tracking**: Logs all lifecycle events
+3. **State Monitoring**: Registers Call.Callback for state changes
+4. **No Business Logic**: Currently only logs, no UI integration or Flutter notifications
+5. **Manifest Registration**: Properly declared with BIND_INCALL_SERVICE permission
+
+**Assessment**:
+- ✓ Correct service extension
+- ✓ Proper manifest registration
+- ✓ Lifecycle callbacks implemented
+- ✓ State monitoring via Call.Callback
+- ✓ Comprehensive logging
+- ⚠ No business logic (logging only)
+- ⚠ No Flutter integration (doesn't notify Dart code)
+- ⚠ No UI integration (doesn't show call screen)
+
+**Purpose**: Appears to be either:
+- A debugging/monitoring tool
+- A skeleton for future implementation
+- Partial implementation of full dialer UI
 
 ## Flow Recommendation
 
-**Type**: TDD (Test-Driven Development)
+**Primary**: TDD (Test-Driven Development)
+- Correctness-critical call handling
+- Lifecycle edge cases
+- State transition coverage
 
-**Confidence**: high
+**Secondary**: SDD (Spec-Driven Development)
+- Service specification
+- Manifest requirements
+- Callback patterns
 
-**Rationale**: Correctness-critical logic. Call state management must handle all edge cases properly. Failures could cause missed calls or UI inconsistencies.
+## ADR Candidates
 
-## Bubble Up
+1. **Logging-Only Design**: Why no business logic or Flutter integration?
+2. **Missing States**: Why not implement all Call.Callback methods?
 
-- Extends InCallService with BIND_INCALL_SERVICE permission
-- Monitors call lifecycle: onCallAdded, onCallRemoved
-- Registers Call.Callback for state changes
-- State monitoring: onStateChanged, onCallDestroyed
-- Logging with TAG = "TeleService"
+## Bubble Up to Root
+
+- Extends InCallService
+- BIND_INCALL_SERVICE permission required
+- Lifecycle: onCallAdded, onCallRemoved
+- State monitoring via Call.Callback
+- Currently logging only
+- No Flutter/Dart integration
 
 ---
 
-*Created by /legacy ENTERING phase*
+*Synthesized by /legacy SYNTHESIZING phase*
